@@ -1,0 +1,16 @@
+# syntax=docker/dockerfile:1.6
+
+FROM node:20-slim
+
+WORKDIR /app
+
+COPY services/ui/package*.json ./services/ui/
+RUN cd services/ui && npm install --legacy-peer-deps
+
+COPY services/ui ./services/ui
+
+WORKDIR /app/services/ui
+
+RUN npm run build
+
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "5173"]

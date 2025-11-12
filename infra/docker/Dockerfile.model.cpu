@@ -1,0 +1,9 @@
+# syntax=docker/dockerfile:1.6
+
+ARG BASE_IMAGE=alpha-mini-base:latest
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+ENV PYTHONPATH=/app
+
+ENTRYPOINT ["poetry", "run", "python", "-m", "services.model.train"]

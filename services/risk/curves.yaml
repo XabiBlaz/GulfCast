@@ -1,0 +1,38 @@
+precip:
+  default:
+    threshold: 150.0        # mm over 7 days
+    slope: 0.45             # scaled damage per normalized excess
+    intensity_norm: 120.0   # mm used to normalize slope
+    max_damage: 0.2         # cap loss fraction
+  gas:
+    threshold: 140.0
+    slope: 0.55
+    intensity_norm: 110.0
+    max_damage: 0.22
+  port:
+    threshold: 180.0
+    slope: 0.35
+    intensity_norm: 140.0
+    max_damage: 0.15
+heat:
+  default:
+    threshold_c: 35.0
+    derate_slope: 0.35
+    max_damage: 0.18
+    value_per_mw_day: 140.0
+    duration_days: 4
+    replacement_cost_per_mw: 1_000_000
+  solar:
+    threshold_c: 37.0
+    derate_slope: 0.4
+    max_damage: 0.15
+    value_per_mw_day: 110.0
+    duration_days: 4
+    replacement_cost_per_mw: 900_000
+  gas:
+    threshold_c: 33.0
+    derate_slope: 0.45
+    max_damage: 0.2
+    value_per_mw_day: 160.0
+    duration_days: 4
+    replacement_cost_per_mw: 1_200_000

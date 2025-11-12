@@ -1,0 +1,32 @@
+ports:
+  heatwave:
+    intensity_unit: "°C"
+    intensity: [30, 35, 40, 45]
+    mdd:       [0.00, 0.05, 0.15, 0.30]
+    paa:       [1,    1,    1,    1]
+  flood:
+    intensity_unit: "mm"
+    intensity: [50, 100, 200, 300]
+    mdd:       [0.02, 0.10, 0.25, 0.50]
+    paa:       [1, 1, 1, 1]
+  drought:
+    intensity_unit: "index"
+    intensity: [0, 2, 4, 6]
+    mdd:       [0.0, 0.05, 0.12, 0.20]
+    paa:       [1, 1, 1, 1]
+power:
+  heatwave:
+    intensity_unit: "°C"
+    intensity: [30, 35, 40, 45]
+    mdd:       [0.00, 0.03, 0.10, 0.20]
+    paa:       [1, 1, 1, 1]
+  flood:
+    intensity_unit: "mm"
+    intensity: [80, 120, 200, 300]
+    mdd:       [0.01, 0.05, 0.15, 0.35]
+    paa:       [1, 1, 1, 1]
+  drought:
+    intensity_unit: "index"
+    intensity: [0, 2, 4, 6]
+    mdd:       [0.0, 0.03, 0.08, 0.18]
+    paa:       [1, 1, 1, 1]

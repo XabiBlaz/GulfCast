@@ -1,0 +1,58 @@
+.cdsapirc
+.netrc
+_netrc# Secrets / creds
+.env
+.cdsapirc
+.netrc
+_netrc
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.ipynb_checkpoints/
+.mypy_cache/
+.pytest_cache/
+.cache/
+
+# Coverage / test
+.coverage
+coverage.xml
+
+# Poetry (normally commit poetry.lock; comment out if needed)
+# poetry.lock
+*.egg-info/
+
+# Local venv (only if created inside project)
+venv/
+
+# Data & artifacts (keep small samples elsewhere if needed)
+data/
+models/
+artifacts/
+outputs/
+tmp/
+*.parquet
+*.zarr
+*.nc
+
+# Logs
+logs/
+*.log
+
+# UI / Node
+services/ui/node_modules/
+services/ui/dist/
+services/ui/.vite/
+*.tsbuildinfo
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large binary images (remove these lines if you want screenshots tracked)
+*.png
+*.jpg
+*.gif

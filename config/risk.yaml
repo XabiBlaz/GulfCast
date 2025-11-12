@@ -1,0 +1,20 @@
+risk_method: "physrisk"  # "parametric" or "physrisk"
+hazards:
+  - heat
+  - drought
+  - flood
+scenario:
+  delta_T_C: 0.0
+  flood_return_period: 20
+  drought_scale: 1.0
+  slr_meters: 0.0
+aggregation:
+  portfolio_copula: "sum"
+  copula_rho: 0.5
+metrics:
+  var_alpha: 0.95
+  es_alpha: 0.95
+physrisk:
+  mc_samples: 4000
+  tail_probability: 0.05
+  rng_seed: 1234

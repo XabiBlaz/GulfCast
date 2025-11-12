@@ -1,0 +1,33 @@
+# syntax=docker/dockerfile:1.6
+
+FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3.11 \
+        python3-pip \
+        python3-venv \
+        build-essential \
+        git \
+        libgdal-dev \
+        gdal-bin \
+        libgeos-dev \
+        libproj-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN python3 -m pip install --upgrade pip && pip install poetry==1.8.3
+
+WORKDIR /app
+COPY pyproject.toml ./
+
+RUN poetry install --no-interaction --extras gpu
+
+COPY . /app
+
+ENV PYTHONPATH=/app
+
+ENTRYPOINT ["poetry", "run", "python", "-m", "services.model.train_unet"]

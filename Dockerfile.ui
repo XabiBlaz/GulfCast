@@ -1,0 +1,12 @@
+FROM node:20-alpine AS build
+WORKDIR /ui
+COPY services/ui/package*.json ./services/ui/
+RUN cd services/ui && npm ci
+COPY services/ui ./services/ui
+RUN cd services/ui && npm run build
+
+FROM nginx:alpine
+COPY --from=build /ui/services/ui/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+

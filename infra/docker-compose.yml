@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  base:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.base
+    image: alpha-mini-base:latest
+
+  model:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.model.cpu
+      args:
+        BASE_IMAGE: alpha-mini-base:latest
+    volumes:
+      - ../data:/app/data
+      - ../models:/app/models
+    depends_on:
+      - base
+    command: ["--data", "data/proc", "--out", "models"]
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.api
+      args:
+        BASE_IMAGE: alpha-mini-base:latest
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - ../data:/app/data
+      - ../models:/app/models
+    ports:
+      - "8000:8000"
+    depends_on:
+      - base
+
+  ui:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.ui
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api

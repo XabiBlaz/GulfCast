@@ -1,0 +1,31 @@
+# syntax=docker/dockerfile:1.6
+
+FROM python:3.11-slim AS base
+
+ENV POETRY_VERSION=1.8.3 \
+    POETRY_HOME=/opt/poetry \
+    POETRY_VIRTUALENVS_CREATE=false \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        gdal-bin \
+        libgdal-dev \
+        libgeos-dev \
+        libproj-dev \
+        curl \
+        git && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN curl -sSL https://install.python-poetry.org | python -
+ENV PATH="${POETRY_HOME}/bin:${PATH}"
+
+WORKDIR /app
+
+COPY pyproject.toml ./
+
+RUN poetry install --no-interaction --no-ansi
+
+COPY . /app
