@@ -198,37 +198,14 @@ docker compose up --build
 
 ---
 
-## 13. Sample UI Embeds
-```markdown
-![Forecast Map](docs/img/forecast_map_sample.png)
-![Asset Risk Table](docs/img/asset_risk_table.png)
-![Scenario Panel](docs/img/scenario_panel.png)
-```
-(Place sample PNGs under `docs/img/`.)
-
-### 13.1 How to add website images (screenshots)
-- Save images under `docs/img/` (e.g., `docs/img/forecast_map_sample.png`).
-- Reference them with relative paths in Markdown:
-  - `![Alt text for accessibility](docs/img/your_image.png)`
-- Control size using HTML if needed:
-  - `<img src="docs/img/your_image.png" alt="Alt text" width="720" />`
-- For UI assets used by the React app:
-  - Put static files in `services/ui/public/` and reference as `/your_image.png` in the app.
-  - Or import inside React: `import img from '../assets/your_image.png'` then `<img src={img} />`.
-- Consider Git LFS for large images:
-  - `git lfs track "*.png" "*.jpg"` then `git add .gitattributes`.
-- Suggestion: capture consistent 16:9 screenshots for readability, and name files by page and date (e.g., `forecast_map_2025-11-11.png`).
-
----
-
-## 14. Security & Reproducibility
+## 13. Security & Reproducibility
 - Deterministic seeds for training stages.
 - Limited LLM token window; no sensitive data echo.
 - All artifacts (models, metrics, risk) versioned via timestamped filenames (extend with DVC/Git LFS if needed).
 
 ---
 
-## 15. Recruiter / Reviewer Note
+## 14. Recruiter / Reviewer Note
 This project demonstrates:
 - Full‑stack ownership: data engineering → ML modeling → probabilistic risk translation → API/UI integration.
 - Applied climate analytics: ensemble post‑processing, quantile modeling, tail risk framing.
@@ -237,7 +214,7 @@ This project demonstrates:
 
 ---
 
-## 16. Next Enhancements (Roadmap)
+## 15. Next Enhancements (Roadmap)
 - Lead‑differentiated comparative skill dashboard.
 - Conformal calibrated dynamic quantile envelopes.
 - Multi‑hazard correlation modeling (copula or generative).
@@ -246,11 +223,4 @@ This project demonstrates:
 
 ---
 
-## 17. Minimal Validation Snippet
-```python
-import pandas as pd
-df = pd.read_parquet("models/forecasts_latest.parquet")
-print(df.groupby("variable")[["mean","q90"]].describe().round(2))
-```
-
-Focused, modular, and extensible—GulfCast is a compact reference blueprint for operational subseasonal climate risk intelligence.
+Focused, modular, and extensible, GulfCast is a compact reference blueprint for operational subseasonal climate risk intelligence.
