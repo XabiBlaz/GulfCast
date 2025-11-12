@@ -60,28 +60,28 @@ This pipeline follows the common “dynamical ensemble → harmonize → statist
 
 - Produce wk‑3/4 grids and uncertainty
   - Score current runs to generate weekly grids for each target (t2m mean, t2m q90, precip mean, precip q90).
-  - Use predicted quantiles (and ensemble spread where helpful) to express confidence; tighter spread ⇒ higher confidence.
+  - Use predicted quantiles (and ensemble spread where helpful) to express confidence, tighter spread ⇒ higher confidence.
 
 - Verify and monitor skill
   - Report MSE, R², and quantile (pinball) loss by target/region.
-  - Expect temperature skill > precipitation at these leads; tails are hardest.
+  - Expect temperature skill > precipitation at these leads, tails are hardest.
 
 - Why this works (intuition)
-  - Dynamical models carry the large‑scale pattern signal; post‑processing corrects systematic bias and miscalibrated spread.
+  - Dynamical models carry the large‑scale pattern signal, post‑processing corrects systematic bias and miscalibrated spread.
   - Stacking leverages complementary strengths across simple learners while keeping variance in check.
 
 - Known limitations
-  - Precipitation extremes are localized and noisier; skill decays with lead time and varies by region/season.
-  - Rare events remain uncertain; treat q90 as directional risk, not certainties.
+  - Precipitation extremes are localized and noisier, skill decays with lead time and varies by region/season.
+  - Rare events remain uncertain, treat q90 as directional risk, not certainties.
 
-  References: See the wk‑3/4 forecasting paper [Beyond Ensemble Averages: Leveraging Climate Model Ensembles for Subseasonal Forecasting](model_ensembles_subseasonal_forecasting.pdf) for principles of ensemble post‑processing and calibration; operational context from CPC’s Week‑3/4 outlooks and similar dynamical systems informs these steps.
+  References: See the wk‑3/4 forecasting paper [Beyond Ensemble Averages: Leveraging Climate Model Ensembles for Subseasonal Forecasting](model_ensembles_subseasonal_forecasting.pdf) for principles of ensemble post‑processing and calibration, operational context from CPC’s Week‑3/4 outlooks and similar dynamical systems informs these steps.
 ---
 
 ## 4. Metrics Interpreted
 - EL (Expected Loss): Mean of modeled loss distribution (baseline provisioning signal).
 - VaR95: Loss threshold exceeded with 5% probability (capital adequacy stress).
 - ES95 (Expected Shortfall): Conditional mean loss beyond VaR95 (tail severity—risk appetite & hedging trigger).
-Interpretation: (ES95 − VaR95) gauges tail thickness; (VaR95 / EL) highlights concentration risk; spatial clustering informs correlated exposure.
+Interpretation: (ES95 − VaR95) gauges tail thickness, (VaR95 / EL) highlights concentration risk, spatial clustering informs correlated exposure.
 
 ---
 
@@ -94,7 +94,7 @@ Interpretation: (ES95 − VaR95) gauges tail thickness; (VaR95 / EL) highlights 
   - Outputs consolidated parquet datasets in data/proc for training and scoring.
 - Modeling
   - Baselines (linear), tree models (RF), quantile regressors, and a stacking meta‑learner.
-  - Targets: t2m mean and q90; precip mean and q90. Loss: pinball for quantiles, MSE for means.
+  - Targets: t2m mean and q90, precip mean and q90. Loss: pinball for quantiles, MSE for means.
 - Forecast Serving
   - Scoring writes models/forecasts_latest.parquet with columns: week_start, lat, lon, variable, mean, q90, model tags.
   - API aggregates duplicates and exposes /forecast/map as flat {lat, lon, value} records.
@@ -105,9 +105,9 @@ Interpretation: (ES95 − VaR95) gauges tail thickness; (VaR95 / EL) highlights 
   - Health and metadata endpoints for orchestration.
 - UI (React + Vite + Leaflet)
   - Pages for Forecast Map and Risk Dashboard with selectors, legends, and interactive markers.
-  - Scenario sliders apply local visual what‑ifs; full recompute available via background job endpoints.
+  - Scenario sliders apply local visual what‑ifs, full recompute available via background job endpoints.
 - Automation
-  - Makefile + shell scripts for local and Docker pipelines; reproducible runs from raw ingest to UI.
+  - Makefile + shell scripts for local and Docker pipelines, reproducible runs from raw ingest to UI.
 - Deployment
   - Local: Poetry + Uvicorn + Vite dev server.
   - Docker: docker compose build/up with mounted volumes for data/models/assets/config.
@@ -122,7 +122,7 @@ Interpretation: (ES95 − VaR95) gauges tail thickness; (VaR95 / EL) highlights 
 2. Positional Encoding: Adds sinusoidal embeddings of lat/lon improving spatial generalization beyond raw coordinates.
 3. Quantile Heads: Directly optimize pinball loss for upper tails (e.g., Q90) used in risk conversion.
 4. PhysRisk Adapter: Lightweight bridge producing ImpactDistrib objects (two‑bin approximation) for VaR/ES extraction.
-5. Scenario Layer: GPU‑free perturbation applied client‑side for instantaneous hazard what‑ifs; server recompute for authoritative portfolio refresh.
+5. Scenario Layer: GPU‑free perturbation applied client‑side for instantaneous hazard what‑ifs, server recompute for authoritative portfolio refresh.
 6. LLM Disclosure: Structured JSON (hazards + losses) → templated analytical prose (governance‑ready).
 
 ---
@@ -175,17 +175,17 @@ docker compose up --build
 ## 10. Extending
 | Goal | Action |
 |------|--------|
-| Add new hazard (e.g., wind) | Extend ingest + feature schema; add model target; update risk curves. |
-| Add week‑1/2 lead | Ingest CFSv2 `--lead wk12`; train parallel model set; add `lead` param to endpoints/UI. |
+| Add new hazard (e.g., wind) | Extend ingest + feature schema, add model target, update risk curves. |
+| Add week‑1/2 lead | Ingest CFSv2 `--lead wk12`, train parallel model set, add `lead` param to endpoints/UI. |
 | Advanced calibration | Insert conformal interval module before risk translation. |
 | Spatial deep model | Implement `train_unet` placeholder (GPU Dockerfile). |
-| Additional quantiles | Extend quantile list; recompute stacking; adapt risk adapter for richer bins. |
+| Additional quantiles | Extend quantile list, recompute stacking, adapt risk adapter for richer bins. |
 
 ---
 
 ## 11. Reliability & Skill Notes
 - Temperature skill (corr) > precipitation at subseasonal leads → rely more on Q90 precipitation spread.
-- Use Mean for planning baselines; Q90 for contingency provisioning.
+- Use Mean for planning baselines, Q90 for contingency provisioning.
 - Monitor drift: retrain when rolling pinball loss degradation > threshold (add CI pipeline trigger).
 
 ---
@@ -200,7 +200,7 @@ docker compose up --build
 
 ## 13. Security & Reproducibility
 - Deterministic seeds for training stages.
-- Limited LLM token window; no sensitive data echo.
+- Limited LLM token window, no sensitive data echo.
 - All artifacts (models, metrics, risk) versioned via timestamped filenames (extend with DVC/Git LFS if needed).
 
 ---
