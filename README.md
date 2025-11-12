@@ -74,7 +74,7 @@ This pipeline follows the common “dynamical ensemble → harmonize → statist
   - Precipitation extremes are localized and noisier; skill decays with lead time and varies by region/season.
   - Rare events remain uncertain; treat q90 as directional risk, not certainties.
 
-References: See the wk‑3/4 forecasting paper [PDF](model_ensembles_subseasonal_forecasting.pdf) for principles of ensemble post‑processing and calibration; operational context from CPC’s Week‑3/4 outlooks and similar dynamical systems informs these steps.
+  References: See the wk‑3/4 forecasting paper [Beyond Ensemble Averages: Leveraging Climate Model Ensembles for Subseasonal Forecasting](model_ensembles_subseasonal_forecasting.pdf) for principles of ensemble post‑processing and calibration; operational context from CPC’s Week‑3/4 outlooks and similar dynamical systems informs these steps.
 ---
 
 ## 4. Metrics Interpreted

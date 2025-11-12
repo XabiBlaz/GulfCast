@@ -19,10 +19,6 @@ __pycache__/
 .coverage
 coverage.xml
 
-# Poetry (normally commit poetry.lock; comment out if needed)
-# poetry.lock
-*.egg-info/
-
 # Local venv (only if created inside project)
 venv/
 
@@ -51,8 +47,3 @@ services/ui/.vite/
 Thumbs.db
 .vscode/
 .idea/
-
-# Large binary images (remove these lines if you want screenshots tracked)
-*.png
-*.jpg
-*.gif
